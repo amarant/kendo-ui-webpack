@@ -105,6 +105,9 @@ var mapping = {
   "kendo.fx.js" : [
     "kendo.fx"  // placeholder
   ],
+   "kendo.grid.js": [
+       "kendo.ui.Grid"
+   ],
   "kendo.list.js" : [
     "kendo.ui.List",
     "kendo.ui.Select"
@@ -233,6 +236,9 @@ var mapping = {
   "kendo.touch.js" : [
     "kendo.ui.Touch"
   ],
+  "kendo.treeview.js" : [
+    "kendo.ui.TreeView"
+  ],
   "kendo.ui.core.js" : [
     /* This file is just a require-all AMD module. We don't want/need that. */
   ],
@@ -266,13 +272,17 @@ for (var fn in mapping)
     var objs = mapping[fn];
 
     objs.forEach(function(obj) {
-      var req = JSON.stringify('kendo-ui-core/src/' + fn);
+      var req = JSON.stringify('../../lib/kendo-ui/src/src/' + fn);
 
       var oi = obj.split(".");
       if (oi.shift() != "kendo")
         throw new Exception("All exported object must begin with kendo.");
 
-      var code = 'module.exports = require(' + req + ').' + oi.join(".") + ";";
+      var oiJoin = oi.join(".");
+      if (oiJoin !== ""){
+          oiJoin = "." + oiJoin;
+      }
+      var code = 'module.exports = require(' + req + ')' + oiJoin + ";";
 
       var out_fn = path.join(__dirname, '..', obj + '.js');
 
@@ -289,8 +299,8 @@ console.log("done (" + count + " files written).");
 
 console.log("Copying styles...");
 
-var base_from = path.join(__dirname, "..", "node_modules", "kendo-ui-core",
-  "dist", "styles");
+var base_from = path.join(__dirname, "..", "..", "kendo-ui",
+  "src", "styles");
 var base_to = path.join(__dirname, "..", "styles");
 
 wrench.copyDirSyncRecursive(base_from, base_to, {

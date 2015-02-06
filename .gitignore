@@ -1,2 +1,5 @@
 # don't include built modules:
 ./*.js
+/styles
+/node_modules
+/*.js
