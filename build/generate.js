@@ -298,8 +298,9 @@ console.log("done (" + count + " files written).");
 //--
 
 console.log("Copying styles...");
+console.log("dirname: " + __dirname);
 
-var base_from = path.join(__dirname, "..", "..", "kendo-ui",
+var base_from = path.join(__dirname, "..", "..", "..", "lib", "kendo-ui",
   "src", "styles");
 var base_to = path.join(__dirname, "..", "styles");
 
